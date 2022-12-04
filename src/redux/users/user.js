@@ -23,7 +23,7 @@ export default function users(state = [], action) {
       return state;
   }
 }
-
+// OTP Verification
 export const verifyOtp = (email, lastotp) => async (dispatch) => {
   try {
     const data = { email: `${email}`, last_otp: `${lastotp}` };
@@ -44,7 +44,7 @@ export const verifyOtp = (email, lastotp) => async (dispatch) => {
     return Promise.reject(err);
   }
 };
-
+// Login authentication
 export const loginUser = (email, password) => async (dispatch) => {
   try {
     const data = { email: `${email}`, password: `${password}` };
@@ -62,7 +62,7 @@ export const loginUser = (email, password) => async (dispatch) => {
     return Promise.reject(err);
   }
 };
-
+// Get user data
 export const getUser = (email) => async (dispatch) => {
   try {
     const data = { email };
@@ -82,6 +82,7 @@ export const getUser = (email) => async (dispatch) => {
   }
 };
 
+// New User creation
 export const createUser = (email, password,
   password_confirmation) => async (dispatch) => {
   try {
