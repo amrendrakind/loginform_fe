@@ -1,6 +1,6 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# Test Project:: Login Form
+# Test Project: Login Form
 
 ## Description
 
