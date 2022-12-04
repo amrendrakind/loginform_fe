@@ -1,14 +1,16 @@
 /* eslint-disable global-require */
 import React, { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { loginUser, getUser } from '../redux/users/user';
+import { verifyOtp } from '../redux/users/user';
 import checkData from './checkData';
-import '../App.css';
 
-function Login({ handleClick }) {
+function Verifyotp({ handleClick }) {
+  const sleep = (ms) => new Promise(
+    (resolve) => setTimeout(resolve, ms),
+  );
+  const otpdata = useSelector((state) => state.users);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [validated, setValidated] = useState(false);
   const dispatch = useDispatch();
@@ -21,40 +23,33 @@ function Login({ handleClick }) {
     } else {
       const formData = new FormData(event.target);
       const formDataObj = Object.fromEntries(formData.entries());
-      dispatch(loginUser(formDataObj.email, formDataObj.password));
-      dispatch(getUser(formDataObj.email));
+      let emailId = localStorage.getItem('email_id').replace(/"/, '');
+      emailId = emailId.replace(/"/, '');
+      dispatch(verifyOtp(emailId, formDataObj.otp));
       setValidated(true);
-      checkData.checkOtp(setIsSubmitted, handleClick);
+      if (otpdata.otp !== undefined) {
+        const { otp } = otpdata;
+        await sleep(0);
+        checkData.checkHome(otp, setIsSubmitted, handleClick);
+      }
     }
   };
   const renderForm = (
     <Form noValidate validated={validated} onSubmit={handleSubmit} className="custom-centered">
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email</Form.Label>
-        <Form.Control name="email" type="email" placeholder="Enter email" required />
-        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-        <Form.Control.Feedback type="invalid">
-          Please enter your email.
-        </Form.Control.Feedback>
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
+        <Form.Label>Enter OPT</Form.Label>
         <InputGroup hasValidation>
-          <Form.Control name="password" type="password" placeholder="Enter password" minLength={6} required />
+          <Form.Control name="otp" type="text" placeholder="Enter OTP" minLength={6} maxLength={6} required />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           <Form.Control.Feedback type="invalid">
-            Please enter your password.
+            Please enter 6 digit OTP.
           </Form.Control.Feedback>
         </InputGroup>
       </Form.Group>
+
       <Button type="submit" className="btn btn-primary">
-        Submit
+        Submit OTP
       </Button>
-      <Form.Group className="mb-3" controlId="formBasicSignUp">
-        Do not have an account?
-        <Link to="/registration">Sign Up</Link>
-      </Form.Group>
     </Form>
   );
 
@@ -75,8 +70,8 @@ function Login({ handleClick }) {
   );
 }
 
-Login.propTypes = {
+Verifyotp.propTypes = {
   handleClick: PropTypes.func.isRequired,
 };
 
-export default Login;
+export default Verifyotp;
