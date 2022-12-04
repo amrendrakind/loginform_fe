@@ -28,8 +28,6 @@ Move into project directory
 
 `cd loginform_fe`
 
-Open app the app VS
-
 Install Project dependancies using `NPM`
 
 `npm install`
