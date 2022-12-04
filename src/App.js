@@ -1,29 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+/* eslint-disable */
+import { Routes, Route } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import Login from './pages/Login';
+import Registration from './pages/Registration';
+import Logout from './pages/Logout';
+import Verifyotp from './pages/Verifyotp';
+import Homepage from './pages/Homepage';
 
 function App() {
+  const [objAuth, setAuthenticated] = useState({ authenticated: false });
+  const handleCallback = (authValue) => {
+    setAuthenticated({ authenticated: authValue });
+  };
+
+  const user = localStorage.getItem('user_id');
+
+  useEffect(() => {
+    if (user === null) {
+      setAuthenticated({ authenticated: false });
+    } else {
+      setAuthenticated({ authenticated: true });
+    }
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit
-          {' '}
-          <code>src/App.js</code>
-          {' '}
-          and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="screen-area">
+         <Routes>
+            <Route path="/" element={<Login handleClick={handleCallback} />} />
+            <Route path="/logout" element={<Logout handleClick={handleCallback} />} />
+            <Route path="/registration" element={<Registration />} />
+            <Route path="/verifyotp" element={<Verifyotp />} />
+            <Route path="/homepage" element={<Homepage />} />
+        </Routes>
+      </div>
+    </>
   );
 }
-
 export default App;
