@@ -54,6 +54,7 @@ const Registration = () => {
     <div className="login-form-container">
       <div className="login-form">
         <Form noValidate validated={validated} onSubmit={handleSubmit} className="custom-centered">
+          <h2>Innova Labs: Sign Up</h2>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email</Form.Label>
             <Form.Control name="email" type="email" placeholder="Enter email" required />
