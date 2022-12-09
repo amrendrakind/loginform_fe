@@ -36,7 +36,7 @@ function Verifyotp({ handleClick }) {
   };
   const renderForm = (
     <Form noValidate validated={validated} onSubmit={handleSubmit} className="custom-centered">
-      <h2>Innova Labs: OTP</h2>
+      <h2>My Labs: OTP</h2>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Enter OPT</Form.Label>
         <InputGroup hasValidation>
