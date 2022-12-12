@@ -4,7 +4,7 @@
 
 ## Description
 
->An app that allows the user to login with 2FA.
+> An app that allows the user to login with 2FA (Two Factor Authentication).
 
 ## Built With
 
