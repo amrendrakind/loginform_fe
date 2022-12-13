@@ -61,7 +61,7 @@ function Verifyotp({ handleClick }) {
           { isSubmitted
             ? (
               <>
-                {/* <div> Welcome to Innova Lab App! </div> */}
+                {/* <div> Welcome to My Lab App! </div> */}
               </>
             )
             : renderForm }
